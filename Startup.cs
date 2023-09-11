@@ -12,6 +12,8 @@ namespace TestHtt
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+           
             services.AddControllersWithViews();
         }
 
@@ -23,10 +25,12 @@ namespace TestHtt
             }
             else
             {
+                app.UseExceptionHandler("/Home/Error");
                 app.UseExceptionHandler();
                 app.UseHsts();
             }
 
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
