@@ -13,6 +13,7 @@ BenchmarkDotNet.Artifacts/
 src/SignalR/clients/**/dist/
 modules/
 .ionide/
+TestHtt/Services/UserDAO.cs
 
 # File extensions
 *.aps
