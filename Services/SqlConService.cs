@@ -1,8 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
+using TestHtt.Models;
+
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace TestHtt.Services
 {
-    public class UserDAO
+    public class SqlConService
     {
         private string connectionString { get; set; }
 
@@ -27,10 +30,10 @@ namespace TestHtt.Services
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    
                 }
             }
             return null;
         }
+
     }
 }
