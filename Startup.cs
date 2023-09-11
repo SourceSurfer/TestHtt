@@ -1,4 +1,6 @@
-﻿namespace TestHtt
+﻿using TestHtt.Services;
+
+namespace TestHtt
 {
     public class Startup
     {

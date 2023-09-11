@@ -18,8 +18,8 @@ namespace TestHtt.Controllers
 
         public IActionResult Index()
         {
-            UserDAO userDAO = new UserDAO();
-            userDAO.Connection();
+            var g = new UserDAO();
+            Console.WriteLine(g.Connection());
             return View();
         }
 

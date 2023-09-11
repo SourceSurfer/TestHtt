@@ -1,3 +1,11 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/testhtt/databases/dbHtt",
+      "type": "mssql.azure",
+      "connectionId": "MyConnection",
+      "dynamicId": null
+    }
+  }
 }
