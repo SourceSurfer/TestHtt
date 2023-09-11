@@ -3,6 +3,7 @@
 using System.Diagnostics;
 
 using TestHtt.Models;
+using TestHtt.Services;
 
 namespace TestHtt.Controllers
 {
@@ -17,6 +18,8 @@ namespace TestHtt.Controllers
 
         public IActionResult Index()
         {
+            UserDAO userDAO = new UserDAO();
+            userDAO.Connection();
             return View();
         }
 
