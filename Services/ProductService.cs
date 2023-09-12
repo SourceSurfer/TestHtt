@@ -7,7 +7,7 @@ using TestHtt.Models;
 
 namespace TestHtt.Services
 {
-    public class ProductService : IProductDataService
+    public class ProductService : BaseFunctional
     {
 
 
@@ -32,7 +32,7 @@ namespace TestHtt.Services
                 {
                     product = new ProductsModel()
                     {
-                        ProductId = (int)reader["CategoryID"],
+                        ProductId = (int)reader["ProductID"],
                         ProductName = (string)reader["ProductName"],
                         CategoryId = (int)reader["CategoryID"],
                         Price = (decimal)reader["Price"],
@@ -97,17 +97,6 @@ namespace TestHtt.Services
             return products;
         }
 
-        public int Delete(ProductsModel model)
-        {
-           
-            throw new NotImplementedException();
-        }
-
-        public int Insert(ProductsModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Поиск похожего по названию продукта
         /// </summary>
@@ -146,10 +135,6 @@ namespace TestHtt.Services
 
             return products;
         }
-        
-        public int Update(ProductsModel model)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

@@ -9,13 +9,13 @@ namespace TestHtt.Controllers
     {
         public IActionResult Index()
         {
-            var service = new ProductCategoryService<ProductCategoriesModel>();
+            var service = new ProductCategoryService();
             return View(service.GetCategories());
         }
 
         public IActionResult EditResult(int CategoryId, string CategoryName, string CategoryDescription)
         {
-            var service = new ProductCategoryService<ProductCategoriesModel>();
+            var service = new ProductCategoryService();
 
             service.Update("ProductCategoryUpdate",
                 new[] { "@value1", "@value2", "@position" }, 
@@ -24,9 +24,18 @@ namespace TestHtt.Controllers
                 return View("Index",service.GetCategories());
         }
 
-        public IActionResult EditForm()
+        public IActionResult EditForm(int id)
         {
-            return View();
+            var service = new ProductCategoryService();
+            var model = service.GetProductCategoryById(id);
+            return View(model);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var service = new ProductCategoryService();
+            service.Delete("ProductCategoryDelete", "@CategoryID", id);
+            return View("Index", service.GetCategories());
         }
     }
 }

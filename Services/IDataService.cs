@@ -2,7 +2,7 @@
 
 namespace TestHtt.Services
 {
-    public interface IDataService<T>
+    public interface IDataService
     {
         /// <summary>
         /// Вставляет данные
@@ -10,7 +10,7 @@ namespace TestHtt.Services
         /// <param name="sp">Хранимая процедура</param>
         /// <param name="value">Значение</param>
         /// <returns>Успех</returns>
-        bool Insert(string sp, string paramName, object value);
+        bool Insert(string sp, string[] paramName, object[] value);
         /// <summary>
         /// Обновляет данные
         /// </summary>
@@ -24,6 +24,6 @@ namespace TestHtt.Services
         /// <param name="sp">Хранимая процедура</param>
         /// <param name="value">Значение</param>
         /// <returns>Успех</returns>
-        bool Delete(string sp, string paramName, int position, object value);
+        bool Delete(string sp, string paramName, object value);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace TestHtt.Services;
 
-public class BaseFunctional<T> : IDataService<T>
+public class BaseFunctional : IDataService
 {
     /// <summary>
     /// Вставляет данные
@@ -12,12 +12,28 @@ public class BaseFunctional<T> : IDataService<T>
     /// <param name="paramName">Имя параметра</param>
     /// <param name="value">Значение</param>
     /// <returns>Успех</returns>
-    public bool Insert(string sp, string paramName, object value)
+    public bool Insert(string sp, string[] paramName, object[] value)
     {
         using var connection = new SqlConService().Connection();
         using SqlCommand command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.AddWithValue(paramName, value);
+
+        switch (paramName.Length)
+        {
+            case 3:
+                command.Parameters.AddWithValue(paramName[0], value[0]);
+                command.Parameters.AddWithValue(paramName[1], value[1]);
+                break;
+            case 5:
+                command.Parameters.AddWithValue(paramName[0], value[0]);
+                command.Parameters.AddWithValue(paramName[1], value[1]);
+                command.Parameters.AddWithValue(paramName[2], value[2]);
+                command.Parameters.AddWithValue(paramName[3], value[3]);
+                command.Parameters.AddWithValue(paramName[4], value[4]);
+                break;
+        }
+
+
         try
         {
             connection?.Open();
@@ -54,12 +70,29 @@ public class BaseFunctional<T> : IDataService<T>
         using var connection = new SqlConService().Connection();
         using SqlCommand command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
-        command.Parameters.AddWithValue(paramName[0], value[0]);
-        command.Parameters.AddWithValue(paramName[1], value[1]);
-        command.Parameters.AddWithValue(paramName[2], value[2]);
+
+        switch (paramName.Length)
+        {
+            case 3:
+                command.Parameters.AddWithValue(paramName[0], value[0]);
+                command.Parameters.AddWithValue(paramName[1], value[1]);
+                command.Parameters.AddWithValue(paramName[2], value[2]);
+                break;
+            case 6:
+                command.Parameters.AddWithValue(paramName[0], value[0]);
+                command.Parameters.AddWithValue(paramName[1], value[1]);
+                command.Parameters.AddWithValue(paramName[2], value[2]);
+                command.Parameters.AddWithValue(paramName[3], value[3]);
+                command.Parameters.AddWithValue(paramName[4], value[4]);
+                command.Parameters.AddWithValue(paramName[5], value[5]);
+                break;
+        }
+
         try
         {
             connection?.Open();
+
+            //TODO когда 6 параметров возвращает -1, непонятно
             int result = command.ExecuteNonQuery();
             
             // Check Error
@@ -85,8 +118,9 @@ public class BaseFunctional<T> : IDataService<T>
     /// <param name="paramName">Имя параметра</param>
     /// <param name="value">Значение</param>
     /// <returns>Успех</returns>
-    public bool Delete(string sp, string paramName, int position, object value)
+    public bool Delete(string sp, string paramName, object value)
     {
+        // TODO Сделать проверку в ХП что нельзя удалять категорию если в ней имеются элементы
         using var connection = new SqlConService().Connection();
         using SqlCommand command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
