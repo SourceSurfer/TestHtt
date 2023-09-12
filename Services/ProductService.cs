@@ -86,6 +86,10 @@ namespace TestHtt.Services
                     catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
+                        products.Add(new ProductsModel
+                        {
+                            ProductName = e.Message,
+                        });
                     }
                 }
             }
@@ -95,6 +99,7 @@ namespace TestHtt.Services
 
         public int Delete(ProductsModel model)
         {
+           
             throw new NotImplementedException();
         }
 
