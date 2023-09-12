@@ -10,6 +10,5 @@ namespace TestHtt.Services
         int Insert(ProductsModel model);
         int Update(ProductsModel model);
         int Delete(ProductsModel model);
-
     }
 }

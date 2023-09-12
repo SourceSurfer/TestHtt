@@ -1,0 +1,36 @@
+﻿@model TestHtt.Models.ProductCategoriesModel
+
+<h4>ProductCategoriesModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditResult">
+            
+            <div class="form-group">
+                <label class="control-label">Id</label>
+                <input name="CategoryId" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Наименование</label>
+                <input name="CategoryName" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <label class="control-label">Описание</label>
+                <input name="CategoryDescription" class="form-control" />
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

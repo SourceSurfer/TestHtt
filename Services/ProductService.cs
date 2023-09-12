@@ -146,9 +146,7 @@ namespace TestHtt.Services
 
             return products;
         }
-
-       
-
+        
         public int Update(ProductsModel model)
         {
             throw new NotImplementedException();

@@ -15,21 +15,11 @@ namespace TestHtt.Services
         /// <returns>SqlConnection</returns>
         public SqlConnection? Connection()
         {
-            /* var config = new ConfigurationBuilder()
-                 .AddUserSecrets<Program>()
-                 .Build();
-
-             conStr = config["MyConnection"];*/
-
-
             var builder = WebApplication.CreateBuilder();
 
             builder.Services.AddEndpointsApiExplorer();
-
-
             var app = builder.Build();
             string conStr = app.Configuration.GetConnectionString("MyConnection")!;
-
             return new SqlConnection(conStr);
         }
 
