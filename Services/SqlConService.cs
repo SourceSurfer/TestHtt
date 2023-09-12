@@ -7,7 +7,7 @@ namespace TestHtt.Services
 {
     public class SqlConService
     {
-        private string connectionString { get; set; }
+        private string? conStr { get; set; }
 
         /// <summary>
         /// Устанавливает подключение
@@ -18,21 +18,10 @@ namespace TestHtt.Services
             var config = new ConfigurationBuilder()
                 .AddUserSecrets<Program>()
                 .Build();
-            connectionString = config["MyConnection"];
 
-            using (SqlConnection? connection = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    return connection;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
-            return null;
+            conStr = config["MyConnection"];
+
+            return new SqlConnection(conStr);
         }
 
     }
