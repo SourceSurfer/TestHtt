@@ -1,82 +1,78 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
 using TestHtt.Models;
-using TestHtt.Services;
 
-namespace TestHtt.Controllers
+namespace TestHtt.Controllers;
+
+public class ProductsController : Controller
 {
-    public class ProductsController : Controller
+    private readonly IBaseService _baseService;
+
+    private readonly IProductService _productService;
+
+    public ProductsController(IProductService productService, IBaseService baseService)
     {
-        /// <summary>
-        /// Списко всех продуктов
-        /// </summary>
-        /// <returns>View</returns>
-        public IActionResult Index(int catId = 1)
-        {
-            var list = new ProductService().GetProducts();
-
-            return View(list);
-        }
+        _productService = productService;
+        _baseService = baseService;
+    }
 
 
+    public IActionResult Index(int catId = 1)
+    {
+        // var list = new ProductService().GetProducts();
 
-        public IActionResult SearchResult(string prodName)
-        {
-            var productService = new ProductService();
-            return View("index", productService.SearchProducts(prodName));
-        }
+        return View(_productService.GetProducts());
+    }
 
-        public IActionResult SearchForm()
-        {
-            return View();
-        }
+    public IActionResult SearchResult(string prodName)
+    {
+        //  var productService = new ProductService();
+        return View("index", _productService.SearchProducts(prodName));
+    }
 
-        public IActionResult ShowDetails(int id)
-        {
-            var products = new ProductService();
-            ProductsModel model = products.GetProductById(id);
-            return View(model);
-        }
+    public IActionResult SearchForm()
+    {
+        return View();
+    }
 
-        public IActionResult Edit(int id)
-        {
-            var products = new ProductService();
-            ProductsModel model = products.GetProductById(id);
-            return View("ShowEdit", model);
-        }
+    public IActionResult ShowDetails(int id)
+    {
+        var model = _productService.GetProductById(id);
+        return View(model);
+    }
 
-        public IActionResult ProcessEdit(int ProductId, string ProductName, int CategoryId,
-            decimal Price, int StockQuantity, string Description)
-        {
-            var products = new ProductService();
-            products.Update("ProductChange",
-                new[] { "@ProductId", "@ProductName", "@CategoryId", "@Price", "@StockQuantity", "@Description" },
-                new object[] { ProductId, ProductName, CategoryId, Price, StockQuantity, Description });
-            return View("Index", products.GetProducts());
-        }
-        public IActionResult Delete(int id)
-        {
-            var products = new ProductService();
-            products.Delete("ProductDelete", "@ProductId", id);
-            return View("Index", products.GetProducts());
-        }
+    public IActionResult Edit(int id)
+    {
+        var model = _productService.GetProductById(id);
+        return View("ShowEdit", model);
+    }
+
+    public IActionResult ProcessEdit(int ProductId, string ProductName, int CategoryId,
+        decimal Price, int StockQuantity, string Description)
+    {
+        _baseService.Update("ProductChange",
+            new[] { "@ProductId", "@ProductName", "@CategoryId", "@Price", "@StockQuantity", "@Description" },
+            new object[] { ProductId, ProductName, CategoryId, Price, StockQuantity, Description });
+        return View("Index", _productService.GetProducts());
+    }
+
+    public IActionResult Delete(int id)
+    {
+        _baseService.Delete("ProductDelete", "@ProductId", id);
+        return View("Index", _productService.GetProducts());
+    }
 
 
-        public IActionResult InputForm()
-        {
-            return View("InputForm"); 
-        }
+    public IActionResult InputForm()
+    {
+        return View("InputForm");
+    }
 
-        public IActionResult ProcessCreate( string ProductName, int CategoryId,
-            decimal Price, int StockQuantity, string Description)
-        {
-            var products = new ProductService();
-            products.Insert("ProductAdd",
-                new[] { "@ProdName", "@CategoryID", "@Price", "@StockQuantity", "@Description" },
-                new object[] { ProductName, CategoryId, Price, StockQuantity, Description });
-            return View("Index", products.GetProducts());
-        }
+    public IActionResult ProcessCreate(string ProductName, int CategoryId,
+        decimal Price, int StockQuantity, string Description)
+    {
+        _baseService.Insert("ProductAdd",
+            new[] { "@ProdName", "@CategoryID", "@Price", "@StockQuantity", "@Description" },
+            new object[] { ProductName, CategoryId, Price, StockQuantity, Description });
+        return View("Index", _productService.GetProducts());
     }
 }

@@ -41,4 +41,12 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\TwoTables.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Home\TwoTables.cshtml" />
+  </ItemGroup>
+
 </Project>

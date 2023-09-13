@@ -1,12 +1,13 @@
 ﻿using System.Data;
 using Microsoft.Data.SqlClient;
+using TestHtt.Services;
 
-namespace TestHtt.Services;
+namespace TestHtt.Models;
 
-public class BaseFunctional : IDataService
+public class BaseFunctional : IBaseService
 {
     /// <summary>
-    /// Вставляет данные
+    ///     Вставляет данные
     /// </summary>
     /// <param name="sp">Хранимая процедура</param>
     /// <param name="paramName">Имя параметра</param>
@@ -15,7 +16,7 @@ public class BaseFunctional : IDataService
     public bool Insert(string sp, string[] paramName, object[] value)
     {
         using var connection = new SqlConService().Connection();
-        using SqlCommand command = new SqlCommand(sp, connection);
+        using var command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
 
         switch (paramName.Length)
@@ -37,7 +38,7 @@ public class BaseFunctional : IDataService
         try
         {
             connection?.Open();
-            int result = command.ExecuteNonQuery();
+            var result = command.ExecuteNonQuery();
 
             // Check Error
             if (result < 0)
@@ -47,28 +48,26 @@ public class BaseFunctional : IDataService
             }
 
             return true;
-
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
             return false;
         }
-
     }
 
-   /// <summary>
-   /// Обновление данных
-   /// </summary>
-   /// <param name="sp">Хранимая процедура</param>
-   /// <param name="paramName">Имя параметра [0], где 0 номер параметра в SP</param>
-   /// <param name="position">Номер строки</param>
-   /// <param name="value">Значение</param>
-   /// <returns>Обновленный список</returns>
+    /// <summary>
+    ///     Обновление данных
+    /// </summary>
+    /// <param name="sp">Хранимая процедура</param>
+    /// <param name="paramName">Имя параметра [0], где 0 номер параметра в SP</param>
+    /// <param name="position">Номер строки</param>
+    /// <param name="value">Значение</param>
+    /// <returns>Обновленный список</returns>
     public bool Update(string sp, string[] paramName, object[] value)
     {
         using var connection = new SqlConService().Connection();
-        using SqlCommand command = new SqlCommand(sp, connection);
+        using var command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
 
         switch (paramName.Length)
@@ -93,14 +92,15 @@ public class BaseFunctional : IDataService
             connection?.Open();
 
             //TODO когда 6 параметров возвращает -1, непонятно
-            int result = command.ExecuteNonQuery();
-            
+            var result = command.ExecuteNonQuery();
+
             // Check Error
             if (result < 0)
             {
                 Console.WriteLine("Error look server inserting data into Database!");
                 return false;
             }
+
             return true;
         }
         catch (Exception e)
@@ -108,11 +108,10 @@ public class BaseFunctional : IDataService
             Console.WriteLine(e.Message);
             return false;
         }
-      
     }
 
     /// <summary>
-    /// Удаление данных
+    ///     Удаление данных
     /// </summary>
     /// <param name="sp">Хранимая процедура</param>
     /// <param name="paramName">Имя параметра</param>
@@ -122,13 +121,13 @@ public class BaseFunctional : IDataService
     {
         // TODO Сделать проверку в ХП что нельзя удалять категорию если в ней имеются элементы
         using var connection = new SqlConService().Connection();
-        using SqlCommand command = new SqlCommand(sp, connection);
+        using var command = new SqlCommand(sp, connection);
         command.CommandType = CommandType.StoredProcedure;
         command.Parameters.AddWithValue(paramName, value);
         try
         {
             connection?.Open();
-            int result = command.ExecuteNonQuery();
+            var result = command.ExecuteNonQuery();
 
             // Check Error
             if (result < 0)
@@ -138,7 +137,6 @@ public class BaseFunctional : IDataService
             }
 
             return true;
-
         }
         catch (Exception e)
         {

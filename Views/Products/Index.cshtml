@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TestHtt.Models.ProductsModel>
+﻿@model IEnumerable<Products>
 
 <p>
     <a asp-action="InputForm">Create New</a>
@@ -17,10 +17,10 @@
                 <h5 class="card-title">@item.ProductName</h5>
                 <p class="card-text">@Html.DisplayFor(m => item.Price)</p>
                 <p class="card-text">
-                    @item.Description
-                    <a href="/products/ShowDetails/@item.ProductId" class="btn btn-primary">Show details</a>
-                    <a href="/products/Edit/@item.ProductId" class="btn btn-warning">Edit</a>
-                    <a href="/products/Delete/@item.ProductId" class="btn btn-danger">Delete</a>
+                @item.Description
+                <a href="/products/ShowDetails/@item.ProductId" class="btn btn-primary">Show details</a>
+                <a href="/products/Edit/@item.ProductId" class="btn btn-warning">Edit</a>
+                <a href="/products/Delete/@item.ProductId" class="btn btn-danger">Delete</a>
             </div>
         </div>
     }

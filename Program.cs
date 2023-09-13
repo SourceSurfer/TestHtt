@@ -1,4 +1,11 @@
+using TestHtt.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IBaseService, BaseFunctional>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -21,7 +28,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    "default",
+    "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
